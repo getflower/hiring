@@ -23,6 +23,21 @@ export const NavBar = () => (
     </div>
     <div style={{ display: "flex", gap: "2rem" }}>
       <a
+        href="/"
+        style={{
+          textDecoration: "none",
+          color: "#7c3aed",
+          fontWeight: 500,
+          padding: "0.3rem 0.8rem",
+          borderRadius: 6,
+          transition: "background 0.2s",
+        }}
+        onMouseOver={(e) => (e.currentTarget.style.background = "#ede9fe")}
+        onMouseOut={(e) => (e.currentTarget.style.background = "transparent")}
+      >
+        Home
+      </a>
+      <a
         href="/profile"
         style={{
           textDecoration: "none",
