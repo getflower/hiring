@@ -1,11 +1,13 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useCart } from "@/contexts/CartContext";
 
 export default function ProductPage() {
   const router = useRouter();
   const { id } = router.query;
   const [product, setProduct] = useState<any>(null);
+  const { addItem } = useCart();
 
   useEffect(() => {
     if (id) {
@@ -45,7 +47,13 @@ export default function ProductPage() {
             <div className="text-xl font-semibold text-green-600 mb-6">
               ${product.price.toFixed(2)}
             </div>
-            <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+            <button
+              className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+              onClick={() => {
+                addItem(product);
+                alert("added!");
+              }}
+            >
               Add to Cart
             </button>
           </div>

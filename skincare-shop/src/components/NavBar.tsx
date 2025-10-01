@@ -38,7 +38,7 @@ export const NavBar = () => (
         Home
       </a>
       <a
-        href="/profile"
+        href="/cart"
         style={{
           textDecoration: "none",
           color: "#7c3aed",
@@ -50,7 +50,7 @@ export const NavBar = () => (
         onMouseOver={(e) => (e.currentTarget.style.background = "#ede9fe")}
         onMouseOut={(e) => (e.currentTarget.style.background = "transparent")}
       >
-        Profile
+        Cart
       </a>
       <a
         href="/products"
