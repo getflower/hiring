@@ -1,17 +1,17 @@
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/contexts/CartContext";
 
 export default function ProductPage() {
-  const router = useRouter();
-  const { id } = router.query;
+  const id =
+    typeof window !== "undefined"
+      ? window.location.pathname.split("/").pop()
+      : undefined;
   const [product, setProduct] = useState<any>(null);
   const { addItem } = useCart();
 
   useEffect(() => {
     if (id) {
-      // Replace with your actual data fetching logic
       fetch(`/api/products`)
         .then((res) => res.json())
         .then((data) => setProduct(data.find((p: any) => p.id === Number(id))));
