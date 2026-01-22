@@ -10,6 +10,33 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Running with Docker
+
+Build and run the production container locally:
+
+```bash
+docker build -t skincare-shop .
+docker run --rm -p 3000:3000 skincare-shop
+```
+
+Then visit [http://localhost:3000](http://localhost:3000).
+
+## Running with Docker Compose
+
+Use Docker Compose to start the development server with live reload:
+
+```bash
+docker compose up
+```
+
+Then visit [http://localhost:3000](http://localhost:3000).
+
+To stop the container:
+
+```bash
+docker compose down
+```
+
 
 ## The task
 
