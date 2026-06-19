@@ -1,0 +1,37 @@
+name: TruffleHog Secret Scan
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
+jobs:
+  secret-scan:
+    name: Secret Scan
+    if: ${{ (github.event_name == 'pull_request' && !github.event.pull_request.draft) || (github.event_name == 'push' && !github.event.deleted) }}
+    uses: getflower/flower-github/.github/workflows/trufflehog.yml@trufflehog-v1
+    with:
+      scanMode: ${{ github.event_name == 'pull_request' && 'pull_request' || 'default_branch_push' }}
+      targetReference: ${{ github.event_name == 'pull_request' && format('pull_request/{0}', github.event.pull_request.number) || github.ref_name }}
+      checkoutRef: ${{ github.event_name == 'pull_request' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.sha }}
+      base: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+      head: ${{ github.event_name == 'pull_request' && 'HEAD' || github.sha }}
+      prNumber: ${{ github.event_name == 'pull_request' && github.event.pull_request.number || '' }}
+    secrets: inherit
